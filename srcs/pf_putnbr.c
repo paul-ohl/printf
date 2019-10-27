@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:45 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 17:08:57 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/27 17:38:55 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		count_char_signed(int nbr)
 	return (i);
 }
 
-void	print_nbr(int n)
+void	print_int(int n)
 {
 	char	buffer[13];
 	int		j;
@@ -83,7 +83,7 @@ int		pf_putnbr(va_list ap, t_flag flag)
 	else if (flag.zeros - print_count > 0)
 		print_count += put_zeros(flag.zeros, print_count);
 	if (nbr || flag.prec > 0)
-		print_nbr(nbr);
+		print_int(nbr);
 	else
 		print_count--;
 	if (flag.sp_af - print_count > 0)
