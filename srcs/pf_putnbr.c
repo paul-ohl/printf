@@ -6,14 +6,14 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:45 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 12:10:44 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/27 17:08:57 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libftprintf.h"
 
-int		count_char(int nbr)
+int		count_char_signed(int nbr)
 {
 	unsigned int	n;
 	int				i;
@@ -36,9 +36,9 @@ int		count_char(int nbr)
 	return (i);
 }
 
-void	print_nbr(int n, int i)
+void	print_nbr(int n)
 {
-	char	buffer[i + 1];
+	char	buffer[13];
 	int		j;
 	int		temp;
 
@@ -63,14 +63,14 @@ void	print_nbr(int n, int i)
 	write(1, buffer, j);
 }
 
-int		pf_putnbr(va_list ap, const char *format, t_flag flag)
+int		pf_putnbr(va_list ap, t_flag flag)
 {
 	int		nbr;
 	int		print_count;
 	int		prec;
 
 	nbr = va_arg(ap, int);
-	print_count = count_char(nbr);
+	print_count = count_char_signed(nbr);
 	prec = (flag.prec < 0) ? 0 : flag.prec;
 	if (flag.sp_be - prec > 0 && flag.sp_be - print_count > 0)
 		print_count += put_spaces_before(flag.sp_be, prec, print_count, nbr);
@@ -78,12 +78,12 @@ int		pf_putnbr(va_list ap, const char *format, t_flag flag)
 		write(1, "-", 1);
 	else
 		nbr = -nbr;
-	if (flag.prec - count_char(nbr) > 0)
-		print_count += put_zeros(flag.prec + 1, count_char(nbr));
+	if (flag.prec - count_char_signed(nbr) > 0)
+		print_count += put_zeros(flag.prec + 1, count_char_signed(nbr));
 	else if (flag.zeros - print_count > 0)
 		print_count += put_zeros(flag.zeros, print_count);
 	if (nbr || flag.prec > 0)
-		print_nbr(nbr, count_char(nbr));
+		print_nbr(nbr);
 	else
 		print_count--;
 	if (flag.sp_af - print_count > 0)

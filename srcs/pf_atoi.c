@@ -6,13 +6,13 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:53:47 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 14:08:28 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/27 17:31:08 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 
-void	increment_i(const char *str, int *i_ptr)
+int		increment_i(const char *str, int *i_ptr)
 {
 	int i;
 
@@ -20,6 +20,7 @@ void	increment_i(const char *str, int *i_ptr)
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
 	*i_ptr += i;
+	return (0);
 }
 
 int		pf_atoi(const char *str, int *i_ptr, va_list ap)
@@ -48,6 +49,5 @@ int		pf_atoi(const char *str, int *i_ptr, va_list ap)
 		result += str[i] - 48;
 		i++;
 	}
-	increment_i(str, i_ptr);
-	return (result * sign);
+	return (result * sign + increment_i(str, i_ptr));
 }

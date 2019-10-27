@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:32:46 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 14:06:31 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/27 16:45:21 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ t_flag	clean_flag(t_flag flag)
 	return (new);
 }
 
-int		select_printer(char function, va_list ap, const char *format,
-			t_flag flag)
+int		select_printer(char function, va_list ap, t_flag flag)
 {
-	int		((*ptr[127])(va_list, const char*, t_flag));
+	int		((*ptr[127])(va_list, t_flag));
 
 	ptr['c'] = &pf_putchar;
 	ptr['d'] = &pf_putnbr;
@@ -56,7 +55,7 @@ int		select_printer(char function, va_list ap, const char *format,
 	ptr['p'] = &pf_puthex1;
 	ptr['x'] = &pf_puthex2;
 	ptr['X'] = &pf_puthex3;
-	return (ptr[(int)function](ap, format, flag));
+	return (ptr[(int)function](ap, flag));
 }
 
 int		arg_printer(const char *format, va_list ap)
@@ -83,5 +82,5 @@ int		arg_printer(const char *format, va_list ap)
 			i++;
 	}
 	flag = clean_flag(flag);
-	return (select_printer(format[i], ap, format, flag));
+	return (select_printer(format[i], ap, flag));
 }
