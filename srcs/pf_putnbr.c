@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:45 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 17:38:55 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/28 16:15:01 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	print_int(int n)
 
 	temp = n;
 	j = 0;
+	if (!temp)
+		j++;
 	while (temp < 0)
 	{
 		j++;
@@ -82,7 +84,7 @@ int		pf_putnbr(va_list ap, t_flag flag)
 		print_count += put_zeros(flag.prec + 1, count_char_signed(nbr));
 	else if (flag.zeros - print_count > 0)
 		print_count += put_zeros(flag.zeros, print_count);
-	if (nbr || flag.prec > 0)
+	if (nbr || flag.prec != 0)
 		print_int(nbr);
 	else
 		print_count--;

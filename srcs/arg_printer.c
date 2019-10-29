@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:32:46 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 16:45:21 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/28 16:17:05 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		arg_printer(const char *format, va_list ap)
 	i = 0;
 	while (format[i] && !is_in_charset(format[i]))
 	{
-		if (format[i] >= '1' && format[i] <= '9')
+		if ((format[i] >= '1' && format[i] <= '9') || format[i] == ' ')
 			flag.sp_be = pf_atoi(format + i, &i, ap);
 		else if (format[i] == '0')
 			flag.zeros = pf_atoi(format + (++i), &i, ap);
@@ -79,7 +79,10 @@ int		arg_printer(const char *format, va_list ap)
 		else if (format[i] == '-')
 			flag.sp_af = pf_atoi(format + (++i), &i, ap);
 		else
-			i++;
+		{
+			write(1, &format[i], 1);
+			return (1);
+		}
 	}
 	flag = clean_flag(flag);
 	return (select_printer(format[i], ap, flag));

@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 13:28:33 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/26 18:12:01 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/28 16:09:49 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_printf(const char *format, ...)
 			write(1, "%", 1);
 		else if (format[i] == '%')
 		{
-			output_len += arg_printer(format + i, ap);
+			output_len += arg_printer(format + i + 1, ap);
 			i = i + format_length(format + i);
 		}
 		else

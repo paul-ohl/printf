@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:53:47 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 17:31:08 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/28 16:18:41 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int		increment_i(const char *str, int *i_ptr)
 	int i;
 
 	i = 0;
-	while (str[i] >= '0' && str[i] <= '9')
+	while ((str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+			|| str[i] == '\r' || str[i] == '\f' || str[i] == '\v')) ||
+			(str[i] >= '0' && str[i] <= '9'))
 		i++;
 	*i_ptr += i;
 	return (0);

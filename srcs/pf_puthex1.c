@@ -6,28 +6,13 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:23 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/28 12:14:05 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/28 15:16:18 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
 #include "libftprintf.h"
-
-int		count_char_hex1(unsigned int nbr)
-{
-	int	i;
-
-	i = 0;
-	if (nbr == 0)
-		return (1);
-	while (nbr > 0)
-	{
-		nbr /= 16;
-		i++;
-	}
-	return (i);
-}
 
 void	write_result_hex1(int *number)
 {
@@ -50,15 +35,15 @@ int		pf_puthex1(va_list ap, t_flag flag)
 	int				prec;
 
 	nbr = va_arg(ap, unsigned int);
-	print_count = count_char_hex1(nbr);
+	print_count = count_char_hex(nbr);
 	prec = (flag.prec < 0) ? 0 : flag.prec;
 	flag.sp_be -= 2;
 	if (flag.sp_be - prec > 0 && flag.sp_be - print_count > 0)
 		print_count += put_spaces_before(flag.sp_be, prec, print_count, nbr);
 	write(1, "0x", 2);
-	print_count++;
-	if (flag.prec - count_char_hex1(nbr) > 0)
-		print_count += put_zeros(flag.prec, count_char_hex1(nbr));
+	print_count += 2;
+	if (flag.prec - count_char_hex(nbr) > 0)
+		print_count += put_zeros(flag.prec, count_char_hex(nbr));
 	else if (flag.zeros - print_count > 0)
 		print_count += put_zeros(flag.zeros, print_count + 1);
 	if (nbr || flag.prec != 0)

@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:32:07 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/27 17:46:02 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/28 16:11:12 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		pf_putunsignedint(va_list ap, t_flag flag)
 		print_count += put_zeros(flag.prec, count_char_unsigned(nbr));
 	else if (flag.zeros - print_count > 0)
 		print_count += put_zeros(flag.zeros, print_count);
-	if (nbr || flag.prec > 0)
+	if (nbr || flag.prec != 0)
 		print_unsignedint(nbr);
 	else
 		print_count--;
