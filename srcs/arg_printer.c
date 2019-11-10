@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:32:46 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/28 16:17:05 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 15:38:46 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 int		is_in_charset(char c)
 {
 	int			i;
-	static char	*charset = "cdipsuxX";
+	static char	*charset = "cdipsuxX%";
 
 	i = 0;
 	while (charset[i] && charset[i] != c)
@@ -55,6 +55,7 @@ int		select_printer(char function, va_list ap, t_flag flag)
 	ptr['p'] = &pf_puthex1;
 	ptr['x'] = &pf_puthex2;
 	ptr['X'] = &pf_puthex3;
+	ptr['%'] = &pf_putpercent;
 	return (ptr[(int)function](ap, flag));
 }
 
@@ -79,10 +80,7 @@ int		arg_printer(const char *format, va_list ap)
 		else if (format[i] == '-')
 			flag.sp_af = pf_atoi(format + (++i), &i, ap);
 		else
-		{
-			write(1, &format[i], 1);
-			return (1);
-		}
+			i++;
 	}
 	flag = clean_flag(flag);
 	return (select_printer(format[i], ap, flag));

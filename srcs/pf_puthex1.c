@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:23 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/28 15:16:18 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 16:04:40 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,24 @@
 #include <unistd.h>
 #include "libftprintf.h"
 
-void	write_result_hex1(int *number)
+int		count_char_ptr(void *ptr)
+{
+	int		i;
+	long	temp;
+
+	i = 0;
+	temp = (long)ptr;
+	if (!ptr)
+		return (1);
+	while (temp > 0)
+	{
+		i++;
+		temp /= 16;
+	}
+	return (i);
+}
+
+void	write_result_ptr(int *number)
 {
 	int			i;
 	static char	hex_chars[16] = {'0', '1', '2', '3', '4', '5', '6',
@@ -28,29 +45,48 @@ void	write_result_hex1(int *number)
 	}
 }
 
+void	ptrtohex(void *ptr)
+{
+	int				buffer[22];
+	long			nbr;
+	int				j;
+
+	nbr = (long)ptr;
+	j = count_char_ptr(ptr);
+	buffer[j] = -1;
+	buffer[j - 1] = 0;
+	while (nbr > 0)
+	{
+		j--;
+		buffer[j] = nbr % 16;
+		nbr /= 16;
+	}
+	write_result_ptr(buffer);
+}
+
 int		pf_puthex1(va_list ap, t_flag flag)
 {
-	unsigned int	nbr;
-	int				print_count;
+	void			*nbr;
+	int				prt_count;
 	int				prec;
 
-	nbr = va_arg(ap, unsigned int);
-	print_count = count_char_hex(nbr);
+	nbr = va_arg(ap, void *);
+	prt_count = count_char_ptr(nbr);
 	prec = (flag.prec < 0) ? 0 : flag.prec;
 	flag.sp_be -= 2;
-	if (flag.sp_be - prec > 0 && flag.sp_be - print_count > 0)
-		print_count += put_spaces_before(flag.sp_be, prec, print_count, nbr);
+	if (flag.sp_be - prec > 0 && flag.sp_be - prt_count > 0)
+		prt_count += put_spaces_before(flag.sp_be, prec, prt_count, (int)nbr);
 	write(1, "0x", 2);
-	print_count += 2;
-	if (flag.prec - count_char_hex(nbr) > 0)
-		print_count += put_zeros(flag.prec, count_char_hex(nbr));
-	else if (flag.zeros - print_count > 0)
-		print_count += put_zeros(flag.zeros, print_count + 1);
+	prt_count += 2;
+	if (flag.prec - count_char_ptr(nbr) > 0)
+		prt_count += put_zeros(flag.prec, count_char_ptr(nbr));
+	else if (flag.zeros - prt_count > 0)
+		prt_count += put_zeros(flag.zeros, prt_count + 1);
 	if (nbr || flag.prec != 0)
-		itohex(nbr, &write_result_hex1);
+		ptrtohex(nbr);
 	else
-		print_count--;
-	if (flag.sp_af - print_count > 0)
-		print_count += put_spaces_after(flag.sp_af, print_count + 1);
-	return (print_count);
+		prt_count--;
+	if (flag.sp_af - prt_count > 0)
+		prt_count += put_spaces_after(flag.sp_af, prt_count + 1);
+	return (prt_count);
 }

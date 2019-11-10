@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 13:06:58 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/28 15:15:47 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 16:02:46 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int				pf_puthex2(va_list ap, t_flag flag);
 int				pf_puthex3(va_list ap, t_flag flag);
 int				pf_putnbr(va_list ap, t_flag flag);
 int				pf_putstr(va_list ap, t_flag flag);
+int				pf_putpercent(va_list ap, t_flag flag);
 int				pf_putunsignedint(va_list ap, t_flag flag);
 int				pf_atoi(const char *str, int *i_ptr, va_list ap);
 int				put_spaces_after(int sp_af, int print_count);

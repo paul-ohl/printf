@@ -1,6 +1,6 @@
 SRCS		= arg_printer.c pf_putchar.c libftprintf.c pf_putchar.c pf_puthex1.c \
 				pf_puthex2.c pf_puthex3.c pf_putnbr.c pf_putstr.c pf_putunsignedint.c \
-				pf_atoi.c pf_utils.c
+				pf_atoi.c pf_utils.c pf_putpercent.c
 
 SRCS_BONUS	=
 

@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:32:05 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/28 15:15:47 by pohl             ###   ########.fr       */
+/*   Updated: 2019/10/29 13:19:03 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void	itohex(unsigned int n, void (*output)(int*))
 		buffer[j] = n % 16;
 		n /= 16;
 	}
-	j = 0;
-	while (buffer[j])
-		j++;
 	output(buffer);
 }
 
