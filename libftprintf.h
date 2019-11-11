@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 13:06:58 by pohl              #+#    #+#             */
-/*   Updated: 2019/11/10 16:02:46 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 22:31:04 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int				put_spaces_after(int sp_af, int print_count);
 int				put_spaces_before(int sp_be, int prec, int nbr_len, int nbr);
 int				put_zeros(int count, int limiter);
 void			itohex(unsigned int n, void (*output)(int*));
-int				count_char_hex(unsigned int nbr);
+int				count_char_hex(unsigned int nbr, int precision);
 
 #endif

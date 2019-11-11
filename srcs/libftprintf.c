@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 13:28:33 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/28 16:09:49 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 17:32:40 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ int		format_length(const char *format)
 {
 	int			i;
 
-	i = 0;
+	i = 1;
 	while (format[i] && !is_in_charset(format[i]))
+	{
 		i++;
+	}
 	return (i);
 }
 

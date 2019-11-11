@@ -6,14 +6,12 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:32:46 by pohl              #+#    #+#             */
-/*   Updated: 2019/11/10 15:38:46 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 16:28:15 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libftprintf.h"
-
-#include <stdio.h>
 
 int		is_in_charset(char c)
 {
@@ -83,5 +81,5 @@ int		arg_printer(const char *format, va_list ap)
 			i++;
 	}
 	flag = clean_flag(flag);
-	return (select_printer(format[i], ap, flag));
+	return (select_printer(format[i], ap, flag) - 1);
 }

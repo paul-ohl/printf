@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:37 by pohl              #+#    #+#             */
-/*   Updated: 2019/11/10 15:33:54 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 22:38:11 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int		pf_putstr(va_list ap, t_flag flag)
 	print_count = char_num;
 	if (flag.prec < 0)
 		flag.prec = char_num;
+	if (flag.prec < char_num)
+		print_count -= char_num - flag.prec;
 	if (flag.sp_be - print_count > 0)
 		print_count += put_spaces_before(flag.sp_be, -1, print_count, 1);
 	if (flag.zeros - print_count > 0)

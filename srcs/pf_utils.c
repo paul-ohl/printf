@@ -6,20 +6,20 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 15:32:05 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/29 13:19:03 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/10 22:31:08 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include <unistd.h>
 
-int		count_char_hex(unsigned int nbr)
+int		count_char_hex(unsigned int nbr, int precision)
 {
 	int	i;
 
 	i = 0;
 	if (nbr == 0)
-		return (1);
+		return ((precision) ? 1 : 0);
 	while (nbr > 0)
 	{
 		nbr /= 16;
@@ -33,7 +33,7 @@ void	itohex(unsigned int n, void (*output)(int*))
 	int				buffer[13];
 	int				j;
 
-	j = count_char_hex(n);
+	j = count_char_hex(n, 42);
 	buffer[j] = -1;
 	buffer[j - 1] = 0;
 	while (n > 0)
