@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:37 by pohl              #+#    #+#             */
-/*   Updated: 2019/11/10 22:38:11 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/11 16:54:42 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ int		ft_strlen(char *str)
 
 int		pf_putstr(va_list ap, t_flag flag)
 {
-	char	*str;
-	int		print_count;
-	int		char_num;
+	static char	*null_str = "(null)";
+	char		*str;
+	int			print_count;
+	int			char_num;
 
 	str = (char*)(va_arg(ap, char*));
+	if (str == NULL)
+		str = null_str;
 	char_num = ft_strlen(str);
 	print_count = char_num;
 	if (flag.prec < 0)

@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 14:33:23 by pohl              #+#    #+#             */
-/*   Updated: 2019/11/10 22:10:43 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/11 16:35:09 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,24 @@ void	ptrtohex(void *ptr)
 int		pf_puthex1(va_list ap, t_flag flag)
 {
 	void			*nbr;
-	int				prt_count;
+	int				ptr_count;
 	int				prec;
 
 	nbr = va_arg(ap, void *);
-	prt_count = count_char_ptr(nbr, flag.prec);
+	ptr_count = count_char_ptr(nbr, flag.prec);
 	prec = (flag.prec < 0) ? 0 : flag.prec;
 	flag.sp_be -= 2;
-	if (flag.sp_be - prec > 0 && flag.sp_be - prt_count > 0)
-		prt_count += put_spaces_before(flag.sp_be, prec, prt_count, (int)nbr);
+	if (flag.sp_be - prec > 0 && flag.sp_be - ptr_count > 0)
+		ptr_count += put_spaces_before(flag.sp_be, prec, ptr_count, (int)nbr);
 	write(1, "0x", 2);
-	prt_count += 2;
+	ptr_count += 2;
 	if (flag.prec - count_char_ptr(nbr, flag.prec) > 0)
-		prt_count += put_zeros(flag.prec, count_char_ptr(nbr, flag.prec));
-	else if (flag.zeros - prt_count > 0)
-		prt_count += put_zeros(flag.zeros, prt_count + 1);
+		ptr_count += put_zeros(flag.prec, count_char_ptr(nbr, flag.prec));
+	else if (flag.zeros - ptr_count > 0)
+		ptr_count += put_zeros(flag.zeros, ptr_count + 1);
 	if (nbr || flag.prec != 0)
 		ptrtohex(nbr);
-	else
-		prt_count--;
-	if (flag.sp_af - prt_count > 0)
-		prt_count += put_spaces_after(flag.sp_af, prt_count + 1);
-	return (prt_count);
+	if (flag.sp_af - ptr_count > 0)
+		ptr_count += put_spaces_after(flag.sp_af, ptr_count);
+	return (ptr_count);
 }

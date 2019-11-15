@@ -6,12 +6,25 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:32:46 by pohl              #+#    #+#             */
-/*   Updated: 2019/11/10 16:28:15 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/14 13:56:05 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libftprintf.h"
+
+t_flag	read_wildcard(va_list ap, t_flag flag, int *i)
+{
+	int		wildcard_value;
+
+	wildcard_value = va_arg(ap, int);
+	if (wildcard_value < 0)
+		flag.sp_af = -wildcard_value;
+	else
+		flag.sp_be = wildcard_value;
+	*i += 1;
+	return (flag);
+}
 
 int		is_in_charset(char c)
 {
@@ -54,6 +67,8 @@ int		select_printer(char function, va_list ap, t_flag flag)
 	ptr['x'] = &pf_puthex2;
 	ptr['X'] = &pf_puthex3;
 	ptr['%'] = &pf_putpercent;
+	if (!is_in_charset(function))
+		return (0);
 	return (ptr[(int)function](ap, flag));
 }
 
@@ -77,6 +92,8 @@ int		arg_printer(const char *format, va_list ap)
 			flag.prec = pf_atoi(format + (++i), &i, ap);
 		else if (format[i] == '-')
 			flag.sp_af = pf_atoi(format + (++i), &i, ap);
+		else if (format[i] == '*')
+			flag = read_wildcard(ap, flag, &i);
 		else
 			i++;
 	}

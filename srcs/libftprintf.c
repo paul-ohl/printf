@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 13:28:33 by pohl              #+#    #+#             */
-/*   Updated: 2019/11/10 17:32:40 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/15 18:33:00 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,16 @@ int		format_length(const char *format)
 	int			i;
 
 	i = 1;
-	while (format[i] && !is_in_charset(format[i]))
+	while (format[i])
 	{
+		if (is_in_charset(format[i]))
+			return (i);
+		else if (format[i] != '-' && format[i] != '.' && format[i] != '*'
+				&& (format[i] < '0' || format[i] > '9'))
+			return (i - 1);
 		i++;
 	}
-	return (i);
+	return (i - 1);
 }
 
 int		ft_printf(const char *format, ...)

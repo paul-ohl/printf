@@ -6,7 +6,7 @@
 /*   By: pohl <pohl@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:53:47 by pohl              #+#    #+#             */
-/*   Updated: 2019/10/28 16:18:41 by pohl             ###   ########.fr       */
+/*   Updated: 2019/11/14 13:55:54 by pohl             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		pf_atoi(const char *str, int *i_ptr, va_list ap)
 			sign = -1;
 		i++;
 	}
-	if (str[i] == '*')
+	if (str[i] == '*' && (*i_ptr += 1))
 		return (va_arg(ap, int));
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
